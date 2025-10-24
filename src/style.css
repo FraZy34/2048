@@ -1,0 +1,102 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --dkClr:#181818;
+  --liClr:whitesmoke;
+  --accClr:#0D0D35; /* Fond pour l'écran de game over */
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body{
+  height: 100%;
+}
+
+body{
+  background-color: #faf8ef; /* Fond du 2048 */
+  color: var(--dkClr);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header, footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  color: #776e65; /* Couleur texte 2048 */
+  font-weight: bold;
+}
+
+main{
+  flex:1;
+  display: flex;
+  position: relative; /* Important pour superposer les UI */
+  justify-content: center;
+  align-items: center;
+}
+
+#gameCanvas{
+  /* Pas besoin de position:absolute si main est flex center */
+  /* On laisse Phaser gérer le centrage */
+  border-radius: 6px; /* Bordure du jeu */
+  z-index: 1;
+}
+
+/* Styles pour les UI en superposition (Game Over)
+  Basé sur ton exemple .gameUI
+*/
+.gameUI{
+  position: absolute; /* Superposé par-dessus le canvas */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  width: 500px; /* Doit être de la même taille que le jeu */
+  height: 600px; /* Doit être de la même taille que le jeu */
+  
+  background-color: rgba(11, 13, 53, 0.8); /* Fond semi-transparent */
+  color: var(--liClr);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  border-radius: 6px;
+}
+
+.gameUI *{
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* L'écran de fin est masqué par défaut */
+#gameEndDiv{
+  display: none;
+}
+
+/* Styles pour le bouton Rejouer */
+#gameRestartBtn {
+  display: inline-block;
+  width: 30%;
+  padding: 10px 15px;
+  margin: 20px 0;
+  text-align: center;
+  font-family: inherit;
+  border-radius: 10px;
+  border: none;
+  font-size: 1.1em;
+  font-weight: bold;
+  justify-content: center;
+}
+
+#gameRestartBtn:hover {
+  background-color: var(--dkClr);
+  border: 0.5px solid var(--liClr);
+  color: var(--liClr);
+  cursor: pointer;
+}

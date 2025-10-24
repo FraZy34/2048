@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2048</title>
+  </head>
+  <body>
+    <header>
+      <p>Phaser | 2048</p>
+    </header>
+    
+    <main>
+      <canvas id="gameCanvas"></canvas>
+
+      <div id="gameEndDiv" class="gameUI">
+        <h1>Game Over !</h1>
+        <h1>Score Final : <span id="gameEndScoreSpan">0</span></h1>
+        <p>Tu veux réessayer ?</p>
+        <button id="gameRestartBtn"><p>Rejouer</p></button>
+      </div>
+    </main>
+
+    <footer>
+      <p>Adapté de l'original 2048</p>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
