@@ -1,0 +1,56 @@
+# Workflow pour déployer un site statique sur GitHub Pages
+name: Deploy static content to Pages
+
+on:
+  # Se lance à chaque 'push' sur la branche 'main'
+  push:
+    branches: ['main'] # !! ATTENTION: Change 'main' si ta branche s'appelle 'master'
+
+  # Permet de lancer ce workflow manuellement depuis l'onglet Actions
+  workflow_dispatch:
+
+# Définit les permissions pour le déploiement
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Récupère ton code
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      # 2. Installe Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # Utilise une version récente
+          
+      # 3. Installe les dépendances (comme 'phaser')
+      - name: Install dependencies
+        run: npm install
+        
+      # 4. Construit le jeu (le fameux 'npm run build')
+      - name: Build
+        run: npm run build
+        
+      # 5. Prépare la page pour le déploiement
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        
+      # 6. Met en ligne le dossier 'dist'
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+          
+      # 7. Déploie !
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
